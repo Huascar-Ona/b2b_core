@@ -1,0 +1,7 @@
+<odoo>
+  <data>
+    <menuitem name="Capturar" action="clientes" id="agregar_menu" sequence="450"/>
+    <menuitem name="Clientes" id="clientes_submenu" parent="agregar_menu" sequence="10"/>
+    <menuitem name="Nuevo" id="nuevo_cliente" parent="clientes_submenu" sequence="5"/>
+  </data>
+</odoo>
