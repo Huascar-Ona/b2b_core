@@ -1,20 +1,31 @@
 # -*- coding: utf-8 -*-
 from odoo import http
+from odoo import models
+import json
+import base64
 
-# class VentaTiempoAire(http.Controller):
-#     @http.route('/venta_tiempo_aire/venta_tiempo_aire/', auth='public')
-#     def index(self, **kw):
-#         return "Hello, world"
+class Telegram(http.Controller):
+     @http.route('/api/telegram/', auth='user', type='json', methods=['POST'], csrf=False)
+     def index(self, file, telegram_id):
+        encode_file = base64.b64encode(file)
+        partners = http.request.env['res.partner']
+        partner = partners.search([('telegram_chat_id','=', telegram_id)])
 
-#     @http.route('/venta_tiempo_aire/venta_tiempo_aire/objects/', auth='public')
+        if partner:
+            return {"response": "OK"}
+        else:
+            return {"telegram_id": "ERROR"}
+
+
+#     @http.route('/telegram/telegram/objects/', auth='public')
 #     def list(self, **kw):
-#         return http.request.render('venta_tiempo_aire.listing', {
-#             'root': '/venta_tiempo_aire/venta_tiempo_aire',
-#             'objects': http.request.env['venta_tiempo_aire.venta_tiempo_aire'].search([]),
+#         return http.request.render('telegram.listing', {
+#             'root': '/telegram/telegram',
+#             'objects': http.request.env['telegram.telegram'].search([]),
 #         })
 
-#     @http.route('/venta_tiempo_aire/venta_tiempo_aire/objects/<model("venta_tiempo_aire.venta_tiempo_aire"):obj>/', auth='public')
+#     @http.route('/telegram/telegram/objects/<model("telegram.telegram"):obj>/', auth='public')
 #     def object(self, obj, **kw):
-#         return http.request.render('venta_tiempo_aire.object', {
+#         return http.request.render('telegram.object', {
 #             'object': obj
 #         })
