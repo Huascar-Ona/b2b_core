@@ -4,7 +4,7 @@ from odoo import models
 import json
 import base64
 
-class Telegram(http.Controller):
+class VentaTiempoAire(http.Controller):
      @http.route('/api/telegram/', auth='user', type='json', methods=['POST'], csrf=False)
      def index(self, file, telegram_id):
         encode_file = base64.b64encode(file)
