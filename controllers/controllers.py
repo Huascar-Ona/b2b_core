@@ -2,20 +2,29 @@
 from odoo import http
 from odoo import models
 import json
-import base64
+# import base64
+import requests
 
 class VentaTiempoAire(http.Controller):
      @http.route('/api/telegram/', auth='user', type='json', methods=['POST'], csrf=False)
-     def index(self, file, telegram_id):
-        encode_file = base64.b64encode(file)
+     def index(self, file, telegram_id, token, reply_markup=False):
+        # encode_file = base64.b64encode(file)
         partners = http.request.env['res.partner']
         partner = partners.search([('telegram_chat_id','=', telegram_id)])
 
+        api_url = "https://api.telegram.org/bot" + token
+
+        url = api_url + "/sendDocument"
+        params = {'chat_id':int(telegram_id)}
+        files = {'document': open(file, 'rb')}
+
         if partner:
-            return {"response": "OK"}
+            if reply_markup:
+                params["reply_markup"] = json.dumps(reply_markup)
+            r = requests.post(url, params=params, files=files)
+            return {"response": "OK", "telegram_url": api_url}
         else:
             return {"telegram_id": "ERROR"}
-
 
 #     @http.route('/telegram/telegram/objects/', auth='public')
 #     def list(self, **kw):
