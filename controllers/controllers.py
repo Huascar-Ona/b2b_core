@@ -2,27 +2,44 @@
 from odoo import http
 from odoo import models
 import json
-# import base64
+import base64
 import requests
+from StringIO import StringIO
+import os
+
+TOKEN = "322027161:AAHeLdME3aTbzJByCBSBfgPyCACzW6QVKL4"
 
 class VentaTiempoAire(http.Controller):
      @http.route('/api/telegram/', auth='user', type='json', methods=['POST'], csrf=False)
-     def index(self, file, telegram_id, token, reply_markup=False):
-        # encode_file = base64.b64encode(file)
+     def index(self, file, filename, telegram_id, reply_markup=False):
+        token = TOKEN
         partners = http.request.env['res.partner']
         partner = partners.search([('telegram_chat_id','=', telegram_id)])
 
-        api_url = "https://api.telegram.org/bot" + token
-
-        url = api_url + "/sendDocument"
-        params = {'chat_id':int(telegram_id)}
-        files = {'document': open(file, 'rb')}
-
         if partner:
+            api_url = "https://api.telegram.org/bot" + token
+
+            url = api_url + "/sendDocument"
+            params = {'chat_id':int(telegram_id)}
+        
+            file_content = base64.b64decode(file)
+            tempf = "/tmp/tmp%s"%http.request.env.uid
+            if not os.path.exists(tempf):
+                os.makedirs(tempf)
+            file_path = os.path.join(tempf, filename)
+            with open(file_path, "wb") as f:
+                f.write(file_content)
+            files = {'document': open(file_path, 'rb')}
+
             if reply_markup:
                 params["reply_markup"] = json.dumps(reply_markup)
+                
             r = requests.post(url, params=params, files=files)
-            return {"response": "OK", "telegram_url": api_url}
+            
+            os.unlink(os.path.join(tempf, filename))
+            os.rmdir(tempf)
+            
+            return {"response": "OK"}
         else:
             return {"telegram_id": "ERROR"}
 
