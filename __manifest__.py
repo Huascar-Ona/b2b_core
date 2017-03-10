@@ -28,6 +28,7 @@
         'views/views.xml',
         'views/templates.xml',
         'views/telegram.xml',
+        'views/log.xml',
         'views/menus.xml'
     ],
     # only loaded in demonstration mode

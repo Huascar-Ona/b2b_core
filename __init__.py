@@ -3,3 +3,4 @@
 from . import controllers
 from . import models
 import res_partner
+import log
