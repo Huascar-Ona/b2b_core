@@ -21,7 +21,7 @@ class VentaTiempoAire(http.Controller):
 
             url = api_url + "/sendDocument"
             params = {'chat_id':int(telegram_id)}
-        
+
             file_content = base64.b64decode(file)
             tempf = "/tmp/tmp%s"%http.request.env.uid
             if not os.path.exists(tempf):
@@ -33,12 +33,16 @@ class VentaTiempoAire(http.Controller):
 
             if reply_markup:
                 params["reply_markup"] = json.dumps(reply_markup)
-                
+
             r = requests.post(url, params=params, files=files)
-            
+
             os.unlink(os.path.join(tempf, filename))
             os.rmdir(tempf)
-            
+
+            # creación de logs
+            record = http.request.env['log.log']
+            record.create({'partner': partner.id, "nombre_archivo": filename})
+
             return {"response": "OK"}
         else:
             return {"telegram_id": "ERROR"}
