@@ -3,5 +3,9 @@
     <menuitem name="Capturar" action="clientes" id="agregar_menu" sequence="450"/>
     <menuitem name="Clientes" id="clientes_submenu" parent="agregar_menu" sequence="10"/>
     <menuitem name="Nuevo" id="nuevo_cliente" parent="clientes_submenu" sequence="5"/>
+
+    <menuitem name="Registros" action="log" id="agregar_registro" sequence="460"/>
+    <menuitem name="Registro" id="registros_submenu" parent="agregar_registro" sequence="20"/>
+    <menuitem name="Nuevo" id="nuevo_registro" parent="registros_submenu" sequence="10"/>
   </data>
 </odoo>

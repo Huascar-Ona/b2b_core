@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+  <odoo>
+    <data>
+
+      <record model="ir.ui.view" id="venta_tiempo_aire.log">
+        <field name="name">venta_aire list</field>
+        <field name="model">log.log</field>
+        <field name="arch" type="xml">
+          <tree>
+            <field name="partner"/>
+            <field name="nombre_archivo"/>
+            <field name="create_date"/>
+          </tree>
+        </field>
+      </record>
+
+      <record model="ir.actions.act_window" id="log">
+        <field name="name">Registros</field>
+        <field name="res_model">log.log</field>
+        <field name="view_mode">tree,form</field>
+      </record>
+    </data>
+  </odoo>
