@@ -1,6 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
   <data>
+
+   <record model="ir.actions.act_window" id="clientes_enviar_archivo">
+        <field name="name">Enviar archivo</field>
+        <field name="res_model">venta_aire.wizard_send_file</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+      </record>
+
+    <record model="ir.ui.view" id="view_send_file_wizard">
+        <field name="name">file send wizardx</field>
+        <field name="model">venta_aire.wizard_send_file</field>
+        <field name="arch" type="xml">
+            <form>
+                <group style="width:50%%">
+                    <field name="file" filename="filename"/>
+                    <field name="filename"/>
+                </group>
+                <footer>
+                    <button name="action_send" type="object" string="Enviar" class="oe_highlight"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
     <record model="ir.ui.view" id="view_partner_form_inherit">
         <field name="name">view.partner.form.inherit</field>
         <field name="model">res.partner</field>
@@ -10,8 +34,10 @@
                 <page string="Telegram Data">
                   <group string="Data" name="data">
                       <field name="telegram_chat_id"/>
+                      <field name="bot_token"/>
                       <field name="identifier"/>
                   </group>
+                  <button name="%(clientes_enviar_archivo)d" string="Enviar archivo" type="action"/>
                 </page>
             </notebook>
         </field>
