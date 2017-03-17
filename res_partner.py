@@ -35,6 +35,10 @@ class res_partner(models.Model):
 
     os.unlink(os.path.join(tempf, filename))
     os.rmdir(tempf)
+
+    # creación de logs
+    record = self.env['log.log']
+    record.create({'partner': self.id, "nombre_archivo": filename})
     
     return True
 

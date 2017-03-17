@@ -1,7 +1,8 @@
 <odoo>
   <data>
-    <menuitem name="Capturar" action="clientes" id="agregar_menu" sequence="450"/>
-    <menuitem name="Clientes" id="clientes_submenu" parent="agregar_menu" sequence="10"/>
-    <menuitem name="Nuevo" id="nuevo_cliente" parent="clientes_submenu" sequence="5"/>
+    <menuitem name="B2B Telegram" action="clientes" id="agregar_menu" sequence="450"/>
+    <menuitem name="Clientes" action="clientes" id="clientes_submenu" parent="agregar_menu" sequence="10"/>
+
+    <menuitem name="Registros" parent="agregar_menu" action="logs_action" id="agregar_registro" sequence="460"/>
   </data>
 </odoo>
