@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <record model="ir.rule" id="clients_by_users_rule">
+      <field name="name">clients by user</field>
+      <field name="model_id" ref="base.model_res_partner" />
+      <field name="global" eval="True" />
+      <field name="domain_force">[('create_uid','=',user.id)]</field>
+  </record>
+</odoo>
