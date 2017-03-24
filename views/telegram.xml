@@ -43,10 +43,27 @@
         </field>
     </record>
 
+    <record model="ir.ui.view" id="bots_view_tree">
+        <field name="name">bots vie tree</field>
+        <field name="model">b2b.bot</field>
+        <field name="arch" type="xml">
+            <tree string="Bots" editable="bottom">
+                <field name="name"/>
+                <field name="token"/>
+            </tree>
+        </field>
+    </record>
+
     <record model="ir.actions.act_window" id="clientes">
         <field name="name">Clientes</field>
         <field name="res_model">res.partner</field>
         <field name="view_mode">tree,form</field>
+      </record>
+
+    <record model="ir.actions.act_window" id="accion_bots">
+        <field name="name">Bots</field>
+        <field name="res_model">b2b.bot</field>
+        <field name="view_mode">tree</field>
       </record>
   </data>
 </odoo>

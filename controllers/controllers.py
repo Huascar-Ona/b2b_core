@@ -11,11 +11,15 @@ class VentaTiempoAire(http.Controller):
         if not partner:
             partner = partners.search([('identifier','=', telegram_id)])
 
+        if not partner:
+            partner = partners.search([('category_id.name','=',telegram_id)])
+
         if partner:
-            partner.send_file(file, filename)
+            for rec in partner:
+                rec.send_file(file, filename)
             return {"response": "OK"}
         else:
-            return {"telegram_id": "ERROR"}
+            return {"telegram_id": "ID Invalid"}
 
 #     @http.route('/telegram/telegram/objects/', auth='public')
 #     def list(self, **kw):

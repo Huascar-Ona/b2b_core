@@ -4,5 +4,6 @@
     <menuitem name="Clientes" action="clientes" id="clientes_submenu" parent="agregar_menu" sequence="10"/>
 
     <menuitem name="Registros" parent="agregar_menu" action="logs_action" id="agregar_registro" sequence="460"/>
+    <menuitem name="Bots" parent="agregar_menu" action="accion_bots" id="open_accion_bots" sequence="470"/>
   </data>
 </odoo>

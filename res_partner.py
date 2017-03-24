@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from odoo import models, fields, api
+from odoo import models, fields, api, exceptions
 import base64
 import os
 import json
@@ -10,11 +10,14 @@ class res_partner(models.Model):
 
   telegram_chat_id = fields.Char("Telegram Chat ID")
   identifier = fields.Char("Identificador alterno")
-  bot_token = fields.Char("Token del bot")  
+  bot_token = fields.Many2one("b2b.bot", string="Bot")  
 
   @api.model
-  def send_file(self, file, filename, reply_markup=False):  
-    api_url = "https://api.telegram.org/bot" + self.bot_token
+  def send_file(self, file, filename, reply_markup=False):
+    if not self.bot_token:
+       return True
+       
+    api_url = "https://api.telegram.org/bot" + self.bot_token.token
 
     url = api_url + "/sendDocument"
     params = {'chat_id':int(self.telegram_chat_id)}
